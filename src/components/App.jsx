@@ -14,16 +14,45 @@ export class App extends Component {
     filter: '',
   };
 
-  contactFilter = evt => {
-    this.setState({ filter: evt.currentTarget.value });
+  componentDidMount() {
+    const storedContacts = localStorage.getItem('contacts');
+
+    if (storedContacts) {
+      this.setState({ contacts: JSON.parse(storedContacts) });
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
+  contactFilter = value => {
+    this.setState({ filter: value.toLowerCase() });
   };
 
   getFilteredContacts = () => {
-    const filter = this.state.filter.toLowerCase();
-    return this.state.contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter)
+    const { filter, contacts } = this.state;
+    if (!filter) {
+      return contacts;
+    }
+
+    return contacts.filter(
+      contact =>
+        contact.name.toLowerCase().includes(filter) ||
+        contact.number.includes(filter)
     );
   };
+
+  // getFilteredContacts = () => {
+  //   const filter = this.state.filter.toLowerCase();
+  //   return this.state.contacts.filter(
+  //     contact =>
+  //       contact.name.toLowerCase().includes(filter) ||
+  //       contact.number.toLowerCase().includes(filter)
+  //   );
+  // };
 
   addContact = userData => {
     if (
