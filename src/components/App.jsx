@@ -34,14 +34,16 @@ export class App extends Component {
 
   getFilteredContacts = () => {
     const { filter, contacts } = this.state;
+    const filterWithoutDashes = filter.replace(/-/g, '');
+
     if (!filter) {
       return contacts;
     }
 
     return contacts.filter(
       contact =>
-        contact.name.toLowerCase().includes(filter) ||
-        contact.number.includes(filter)
+        contact.name.toLowerCase().includes(filterWithoutDashes) ||
+        contact.number.replace(/-/g, '').includes(filterWithoutDashes)
     );
   };
 

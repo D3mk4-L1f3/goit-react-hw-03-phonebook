@@ -21,8 +21,8 @@ export default class ContactForm extends Component {
     const formattedName = name.replace(/\b\w/g, l => l.toUpperCase());
     const formattedNumber = number.replace(/[^\d]/g, '');
     const phoneNumberWithHyphens = formattedNumber.replace(
-      /^(\d{3})(\d{2})(\d{2})(\d{3})(\d+)$/,
-      '$1-$2-$3-$4'
+      /^(\d{3})(\d{2})(\d+)$/,
+      '$1-$2-$3'
     );
 
     const user = {
