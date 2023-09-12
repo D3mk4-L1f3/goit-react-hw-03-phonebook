@@ -22,7 +22,7 @@ export class App extends Component {
     }
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(_, prevState) {
     if (prevState.contacts !== this.state.contacts) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
@@ -44,15 +44,6 @@ export class App extends Component {
         contact.number.includes(filter)
     );
   };
-
-  // getFilteredContacts = () => {
-  //   const filter = this.state.filter.toLowerCase();
-  //   return this.state.contacts.filter(
-  //     contact =>
-  //       contact.name.toLowerCase().includes(filter) ||
-  //       contact.number.toLowerCase().includes(filter)
-  //   );
-  // };
 
   addContact = userData => {
     if (
